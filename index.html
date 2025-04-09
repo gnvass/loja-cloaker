@@ -1,0 +1,135 @@
+<!-- CLOAKER SHOPIFY FAKE FRONT - MODO FAKE BONITÃO -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Fake Estilo Shopify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .product-content {
+      padding: 15px;
+    }
+    .product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    .product-price {
+      font-size: 16px;
+      color: #1e88e5;
+      margin-bottom: 10px;
+    }
+    .product-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #1e88e5;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="headline">Carregando loja fake...</h1>
+  </header>
+  <div class="container" id="products"></div>
+
+  <script>
+    async function fetchFakeProducts() {
+      return [
+        {
+          title: 'Bola de Gato Branca',
+          description: 'Brinquedo elegante para felinos de classe.',
+          images: { edges: [{ node: { url: 'https://via.placeholder.com/400x300?text=Gato' } }] },
+          variants: { edges: [{ node: { price: '19.90' } }] },
+          handle: 'bola-de-gato-branca'
+        },
+        {
+          title: 'Bola de Cachorro Branca',
+          description: 'Brinquedo resistente para cães nervosos.',
+          images: { edges: [{ node: { url: 'https://via.placeholder.com/400x300?text=Cachorro' } }] },
+          variants: { edges: [{ node: { price: '24.90' } }] },
+          handle: 'bola-de-cachorro-branca'
+        }
+      ];
+    }
+
+    async function detectarRegiaoEExibirProdutos() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const geo = await res.json();
+        const isMobile = /mobile|iphone|android/i.test(navigator.userAgent);
+        const isFranca = geo.country === 'FR';
+
+        const produtos = await fetchFakeProducts();
+        const container = document.getElementById('products');
+
+        document.getElementById('headline').innerText =
+          isFranca && isMobile ? '🌱 Loja de Plantas (FR/Mobile)' : '🧱 Loja de Tijolos (Outros)';
+
+        produtos.forEach(p => {
+          const img = p.images.edges[0]?.node?.url || '';
+          const price = p.variants.edges[0]?.node?.price || '---';
+
+          container.innerHTML += `
+            <div class="product">
+              <img src="${img}" alt="${p.title}" />
+              <div class="product-content">
+                <h2 class="product-title">${p.title}</h2>
+                <p class="product-price">€ ${price}</p>
+                <a href="/products/${p.handle}" class="product-link">Ver Produto</a>
+              </div>
+            </div>
+          `;
+        });
+      } catch (err) {
+        document.getElementById('headline').innerText = 'Erro no modo fake.';
+        console.error(err);
+      }
+    }
+
+    detectarRegiaoEExibirProdutos();
+  </script>
+</body>
+</html>
