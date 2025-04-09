@@ -1,110 +1,187 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!-- CLOAKER SHOPIFY FAKE FRONT - REAL API CONECTADA -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Loja Disfarçada</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
+
 <body>
-<p class="p1">&lt;!-- CLOAKER SHOPIFY FAKE FRONT - REAL API CONECTADA --&gt;</p>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Loja Disfarçada&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="stylesheet" href="/css/style.css"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="root"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 id="headline"&gt;Carregando loja...&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="products"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const SHOPIFY_ENDPOINT = 'https://8dvarejista.myshopify.com/api/2023-10/graphql.json';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const SHOPIFY_TOKEN = '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';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>async function fetchProducts() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const query = `{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>products(first: 6) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>edges {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>node {</p>
-<p class="p1"><span class="Apple-converted-space">              </span>title</p>
-<p class="p1"><span class="Apple-converted-space">              </span>description</p>
-<p class="p1"><span class="Apple-converted-space">              </span>images(first: 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>edges {</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>node {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>url</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">              </span>}</p>
-<p class="p1"><span class="Apple-converted-space">              </span>variants(first: 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>edges {</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>node {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>price</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">              </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const res = await fetch(SHOPIFY_ENDPOINT, {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>method: 'POST',</p>
-<p class="p1"><span class="Apple-converted-space">        </span>headers: {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>'Content-Type': 'application/json',</p>
-<p class="p1"><span class="Apple-converted-space">          </span>'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN</p>
-<p class="p1"><span class="Apple-converted-space">        </span>},</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body: JSON.stringify({ query })</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const json = await res.json();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return json.data.products.edges.map(edge =&gt; edge.node);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>async function detectarRegiaoEExibirProdutos() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const res = await fetch('https://ipapi.co/json/');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const geo = await res.json();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const isMobile = /mobile|iphone|android/i.test(navigator.userAgent);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const isFranca = geo.country === 'FR';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const produtos = await fetchProducts();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const container = document.getElementById('products');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('headline').innerText =</p>
-<p class="p1"><span class="Apple-converted-space">          </span>isFranca &amp;&amp; isMobile ? '🌱 Loja de Plantas (FR/Mobile)' : '🧱 Loja de Tijolos (Outros)';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>produtos.forEach(p =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const img = p.images.edges[0]?.node?.url || '';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const price = p.variants.edges[0]?.node?.price || '---';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>container.innerHTML += `</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div style="border:1px solid #ccc;padding:10px;margin:10px"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;img src="${img}" width="150" /&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;strong&gt;${p.title}&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;€ ${price}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} catch (err) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('headline').innerText = 'Erro ao carregar produtos.';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>console.error(err);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>detectarRegiaoEExibirProdutos();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+  <div id="root">
+
+    <h1 id="headline">Carregando loja...</h1>
+
+    <div id="products"></div>
+
+  </div>
+
+
+
+  <script>
+
+    const SHOPIFY_ENDPOINT = 'https://8dvarejista.myshopify.com/api/2023-10/graphql.json';
+
+    const SHOPIFY_TOKEN = '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';
+
+
+
+    async function fetchProducts() {
+
+      const query = `{
+
+        products(first: 6) {
+
+          edges {
+
+            node {
+
+              title
+
+              description
+
+              images(first: 1) {
+
+                edges {
+
+                  node {
+
+                    url
+
+                  }
+
+                }
+
+              }
+
+              variants(first: 1) {
+
+                edges {
+
+                  node {
+
+                    price
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }`;
+
+
+
+      const res = await fetch(SHOPIFY_ENDPOINT, {
+
+        method: 'POST',
+
+        headers: {
+
+          'Content-Type': 'application/json',
+
+          'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN
+
+        },
+
+        body: JSON.stringify({ query })
+
+      });
+
+
+
+      const json = await res.json();
+
+      return json.data.products.edges.map(edge => edge.node);
+
+    }
+
+
+
+    async function detectarRegiaoEExibirProdutos() {
+
+      try {
+
+        const res = await fetch('https://ipapi.co/json/');
+
+        const geo = await res.json();
+
+        const isMobile = /mobile|iphone|android/i.test(navigator.userAgent);
+
+        const isFranca = geo.country === 'FR';
+
+
+
+        const produtos = await fetchProducts();
+
+        const container = document.getElementById('products');
+
+
+
+        document.getElementById('headline').innerText =
+
+          isFranca && isMobile ? '🌱 Loja de Plantas (FR/Mobile)' : '🧱 Loja de Tijolos (Outros)';
+
+
+
+        produtos.forEach(p => {
+
+          const img = p.images.edges[0]?.node?.url || '';
+
+          const price = p.variants.edges[0]?.node?.price || '---';
+
+
+
+          container.innerHTML += `
+
+            <div style="border:1px solid #ccc;padding:10px;margin:10px">
+
+              <img src="${img}" width="150" /><br>
+
+              <strong>${p.title}</strong><br>
+
+              <span>€ ${price}</span>
+
+            </div>
+
+          `;
+
+        });
+
+      } catch (err) {
+
+        document.getElementById('headline').innerText = 'Erro ao carregar produtos.';
+
+        console.error(err);
+
+      }
+
+    }
+
+
+
+    detectarRegiaoEExibirProdutos();
+
+  </script>
+
 </body>
+
 </html>
